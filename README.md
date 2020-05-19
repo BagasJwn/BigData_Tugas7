@@ -1,151 +1,117 @@
-# Tugas EAS dengan Menggunakan 4 Datasets
-Tugas EAS ini berisi analisa mengenai 4 datasets time series yang berbeda.
+## Bigdata 2020
 
-## Menu Cepat
-1. [Kebutuhan](#1-kebutuhan)
-2. [Pendahuluan](#2-pendahuluan)
-3. [Daily Minimum Temperature](#3-daily-minimum-temperature)
-	- [Business Understanding](#31-business-understanding)
-	- [Data Understanding](#32-data-understanding)
-	- [Data Preparation](#33-data-preparation)
-	- [Modeling](#34-modeling)
-	- [Evaluation](#35-evaluation)
-	- [Deployment](#36-deployment)
-4. [Electric Production](#4-electric-production)
-	- [Business Understanding](#41-business-understanding)
-	- [Data Understanding](#42-data-understanding)
-	- [Data Preparation](#43-data-preparation)
-	- [Modeling](#44-modeling)
-	- [Evaluation](#45-evaluation)
-	- [Deployment](#46-deployment)
-5. [Monthly Beer](#5-monthly-beer)
-	- [Business Understanding](#51-business-understanding)
-	- [Data Understanding](#52-data-understanding)
-	- [Data Preparation](#53-data-preparation)
-	- [Modeling](#54-modeling)
-	- [Evaluation](#55-evaluation)
-	- [Deployment](#56-deployment)
-6. [Sales Shampoo](#6-sales-shampoo)
-	- [Business Understanding](#61-business-understanding)
-	- [Data Understanding](#62-data-understanding)
-	- [Data Preparation](#63-data-preparation)
-	- [Modeling](#64-modeling)
-	- [Evaluation](#65-evaluation)
-	- [Deployment](#66-deployment)
-7. [Referensi](#7-referensi)
+# Dokumentasi Tugas 7
 
-## 1. Kebutuhan
-- KNIME
-- Time Series Datasets (https://www.kaggle.com/shenba/time-series-datasets)
+* [Business Understanding](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#business-understanding)<br/>
+* [Data Understanding](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#data-understanding)<br/>
+* [Data Preparation](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#data-preparation)<br/>
+* [Modeling](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#modeling)<br/>
+* [Evaluation](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#evaluation)<br/>
+* [Deployment](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/README.md#deployment)<br/>
 
+# Business Understanding
 
-## 2. Pendahuluan
-Pada tugas eas ini, akan dilakukan analisa pada 4 datasets time series, antara lain :
-- Daily minimum temperature
-- Electric Production
-- Monthly Beer
-- Sales Shampoo
+Kemungkinan-kemungkinan yang dapat dilakukan dari Data tersebut adalah untuk menganalisa proses yang terdapat<br/>
+pda dataset, dan menganalisa kebutuhan energi yang ada di irlandia
 
-Dimana workflow yang dibuat adalah sebagai berikut :
+# Data Understanding
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1.PNG)
+- Dataset iris ini terdiri dari 3 coloumns dan 5000++ rows yang berisi data penggunaan energi di irlandia
 
-Pada workflow ini, create env local akan dibuat sebagai spark, dimana dihubungkan ke tiap metanode, tiap metanode berisi workflow yang sama, dengan konfigurasi yang berbeda, workflow dari tiap node adalah sebagai berikut :
+- dataset berisi sebagai berikut :
+  - meterID
+  - enc_datetime
+  - reading  
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2.PNG)
+- kolom meterID merupakan kolom unique yang merupakan id dari pengguna
 
-workflow diatas berisi pada setiap node, yang akan dijelaskan pada tahapan berikutnya, penjelasan disesuaikan berdasarkan data yang dianalisa, dikarenakan data yang di analisa berbeda.
+- kolom enc_datetime merupakan kolom yang berisi waktu yang telah di konversi
 
+- kolom reading merupakan kolom energi data meter
 
-## 3. Daily Minimum Temperature
-Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
+# Data Preparation
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/1.PNG)
+- workflow<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/1.PNG "file reader")<br/>
 
-Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
+- menyiapkan node file reader untuk membaca file dari dataset data meters <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/1.PNG "file reader")<br/>
 
+- melakukan konfigurasi yang mengarahkan pada dataset tersebut <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/2.PNG "file reader")<br/>
 
-### 3.1 Business Understanding
-Data test yang digunakan pada workflow ini adalah data Time Series Daily Minimum Temperature, sehingga kemungkinan proses yang dapat dilakukan pada data ini adalah melakukan analisa terhadap minimal temperature, analisa yang dilakukan adalah sebagai berikut :
-- Analisa berdasarkan Tahun (Total Tahun)
-- Analisa berdasarkan Bulan (Rata-rata tiap Bulan)
-- Analisa berdasarkan Minggu (Rata-rata tiap Minggu)
-- Analisa berdasarkan Hari dalam Seminggu (Rata-rata tiap Hari Senin-Minggu, Rata-rata tiap hari)
-- Analisa berdasarkan Hari Libur dan Hari Kerja (Rata-rata tiap Hari Libur dan Kerja)
+- mengatur konfiguras pada local environment big data <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/4.PNG "file reader")<br/>
 
+- memasang node table DB Table Creator yang dilihat dari node tersebut <br/>
+Node ini disambung dari connection dari environment sebelumnya<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/5.PNG "file reader")<br/>
 
-### 3.2 Data Understanding
-Datasets ini berisi sejumlah data yang berisi penggunaan minimum temp.
+- memasang konfigurasi dari node table DB Table Creator <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/6.PNG "file reader")<br/>
 
-Terdapat 3 kolom data dengan :
-- id_daily sebuah integer yang menjadi id utama pada data ini.
-- tempdate sebuah string yang berisi waktu.
-- dailymintemp sebuah double yang berisi data mintemp.
+- memasang node DB Loader untuk membaca table dan data yang sudah ada sebelumnya <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/7.PNG "file reader")<br/>
 
+- memasang konfigurasi dari node DB Loader yang sudah disesuakan nama tablenya <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/8.PNG "file reader")<br/>
 
-### 3.3 Data Preparation
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/2.PNG)
+- Didapati hasi seperti dibawah ini<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/9.PNG "file reader")<br/>
 
-Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
-Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
+- Memasang node hive to spark untuk mengubah table dari hive menjadi spark <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/10.PNG "file reader")<br/>
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/3.PNG)
+- Menjalankan konfigurasi yang ada dan mendapati hasil seperti dibawah ini setelah di convert <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/11.PNG "file reader")<br/>
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/4.PNG)
+- karna melakukan pemrosesan pada data waktu, data waktu yang ada ini merupadakan data integer, yang mana harus <br/>
+menjadi bentuk date dan waktu. perubahan ini dilakukan menggunakan node spark sql
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/12.PNG "file reader")<br/>
 
-Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
+``` SELECT 
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/5.PNG)
+meterid,
+enc_datetime,
+reading as kw30,
+date_add(cast('2008-12-31' as timestamp), cast(substr(enc_datetime, 1, 3) as int)) as eventDate,
+concat(
+	substr(concat("00", cast(cast((cast(substr(enc_datetime, 4) as int) * 30 / 60) as int) %24 as string)), -2, 2),":", 
+	substr(concat("00", cast(cast(cast(substr(enc_datetime, 4) as int) * 30 % 60 as int) as string)), -2, 2)
+) as my_time
 
-Daily Temp Minimum akan disimpan pada hive dengan nama table daily_temperature.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/6.PNG)
-
-Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/7.PNG)
-
-
-### 3.4 Modeling
-Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/10.PNG)
-
-Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/8.PNG)
-
-Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/9.PNG)
-
-Pada query ini melakukan select data yang berada pada table, yang kemudian data date dilakukan perubahan dari string menjadi bentuk date, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/11.PNG)
-
-Pada kolom newdate, hasil perubahan -1 hari dari hari aslinya, hal ini terjadi karena sewaktu perubahan dilakukan konversi dalam bentuk timestamp, tapi tidak akan terpengaruh dengan hasil yang bulan, tahun, dan harinya. Selanjutnya adalah melakukan ekstrasi waktu baru untuk mendapatkan tahun, bulan, minggu, hari, dengan menjalankan ``Spark SQL Query``, dengan query yang berisi
-
+FROM #table# t1
 ```
-SELECT 
-`id_dailymintemp`,
-`temp`,
-`tempdate`,
-year(`newdate`) as year,
-month(`newdate`) as month,
-weekofyear(`newdate`) as week,
-date_format(`newdate`, 'EEEE') as dayOfWeek
+- query ini merubah data yang ada di table, data yang akan di konversi ialah data yang ada di enc_datetime<br/>
+
+- hasilnya tertera pada dibawah ini<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/13.PNG "file reader")<br/>
+
+- memasang node spark dql qury dengan tujuan berbeda, yaitu dengan meng ekstrak fitur datetime<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/14.PNG "file reader")<br/>
+
+``` SELECT 
+
+meterid,
+kw30,
+eventDate,
+year(eventDate) as year,
+month(eventDate) as month,
+weekofyear(eventDate) as week,
+date_format(eventDate, 'EEEE') as dayOfWeek,
+hour(my_time) as hour
 
 FROM #table# t1
 ```
 
-Pada query ini melakukan select year, month, week, dayofweek yang diambil dari newdate (date yang telah diekstrasi pada node sebelumnya), sehingga menghasilkan
+- mengekstrak atribut menggunakan sintaks diatas, menggunakan node diatas, dan didapati kolom baru tahun,buan, minggu, hari dan jam<br/>
+dan didapati hasil seperti ini<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/15.PNG "file reader")<br/>
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/12.PNG)
+- memasang node spark dql qury dengan tujuan berbeda, yaitu dengan meng ekstraksi pada weekend/weekdays<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/16.PNG "file reader")<br/>
 
-Selanjutnya adalah melakukan select baru dengan menjalankan query
-
-```
-SELECT *, 
+``` SELECT *, 
 CASE 
 WHEN dayOfWeek in ('Saturday','Sunday') 	THEN 'WE' 
 									        ELSE 'BD' 
@@ -154,516 +120,142 @@ END as dayClassifier
 from #table#
 ```
 
-Query ini akan melakukan pembuatan column baru, dengan value nya diambil dari dayOfWeek sebelumnya dengan kondisi dimana Saturday dan Sunday akan di isi dengan WE sedangkan hari lain di isi dengan BD, sehingga menghasilkan
+- dengan menjalankan sintaks ini dan mendapati hasil seperti ini<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/17.PNG "file reader")<br/>
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/13.PNG)
+- memasang node spark dql qury dengan tujuan berbeda, yaitu dengan mengkategorikan menjadi 5 kategori<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/18.PNG "file reader")<br/>
 
-Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/14.PNG)
-
-Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalisa, saya akan menjelaskan beberapa node, dikarenakan node yang lain melakukan hal yang sama, hanya berbeda pada column yang di analisa.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/15.PNG)
-
-Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/16.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/17.PNG)
-
-Sedangkan ``usage by month``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/18.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/19.PNG)
-
-Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/20.PNG)
-
-Hasil dari rata-rata adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/21.PNG)
-
-Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/22.PNG)
-
-Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/23.PNG)
-
-Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, selanjutnya adalah lakukan hal yang sama pada node lainnya, setelah melakukan analisa rata-rata lakukan join pada table tersebut, sehingga hasil akhir dari table yang telah selesai di proses adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/24.PNG)
-
-Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
-
-
-### 3.5 Evaluation
-Pada evaluation akan dijalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/25.PNG)
-
-Pada tahap ini dilakukan select semua data dari node sebelumnya.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/26.PNG)
-
-Hasilnya adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/27.PNG)
-
-Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/28.PNG)
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/29.PNG)
-
-
-### 3.6 Deployment
-Selanjutnya pada tahap deployment kita akan menjalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/30.PNG)
-
-Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/1/31.PNG)
-
-
-## 4. Electric Production
-Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/1.PNG)
-
-Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
-
-
-### 4.1 Business Understanding
-Data test yang digunakan pada workflow ini adalah data Time Series Electric Production, sehingga kemungkinan proses yang dapat dilakukan pada data ini adalah melakukan analisa terhadap electric production, analisa yang dilakukan adalah sebagai berikut :
-- Analisa berdasarkan Tahun (Total Tahun)
-- Analisa berdasarkan Bulan (Rata-rata tiap Bulan)
-- Analisa berdasarkan Minggu (Rata-rata tiap Minggu)
-- Analisa berdasarkan Hari dalam Seminggu (Rata-rata tiap Hari Senin-Minggu, Rata-rata tiap hari)
-- Analisa berdasarkan Hari Libur dan Hari Kerja (Rata-rata tiap Hari Libur dan Kerja)
-
-
-### 4.2 Data Understanding
-Datasets ini berisi sejumlah data yang berisi electric production.
-
-Terdapat 2 kolom data dengan :
-- date sebuah string yang berisi waktu.
-- IPG2211A2N sebuah double yang berisi data electric production.
-
-
-### 4.3 Data Preparation
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/2.PNG)
-
-Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
-Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/3.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/4.PNG)
-
-Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/5.PNG)
-
-Electric Production akan disimpan pada hive dengan nama table electric_production.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/6.PNG)
-
-Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/7.PNG)
-
-
-### 4.4 Modeling
-Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/10.PNG)
-
-Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/8.PNG)
-
-Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/9.PNG)
-
-Pada query ini melakukan select data yang berada pada table, yang kemudian data date dilakukan perubahan dari string menjadi bentuk date, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/11.PNG)
-
-Pada kolom newdate, hasil perubahan -1 hari dari hari aslinya, hal ini terjadi karena sewaktu perubahan dilakukan konversi dalam bentuk timestamp, tapi tidak akan terpengaruh dengan hasil yang bulan, tahun, dan harinya. Selanjutnya adalah melakukan ekstrasi waktu baru untuk mendapatkan tahun, bulan, minggu, hari, dengan menjalankan ``Spark SQL Query``, dengan query yang berisi
-
-```
-SELECT 
-SELECT 
-`DATE`,
-`eprod`,
-year(`newdate`) as year,
-month(`newdate`) as month,
-weekofyear(`newdate`) as week,
-date_format(`newdate`, 'EEEE') as dayOfWeek
-
-FROM #table# t1
-```
-
-Pada query ini melakukan select year, month, week, dayofweek yang diambil dari newdate (date yang telah diekstrasi pada node sebelumnya), sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/12.PNG)
-
-Selanjutnya adalah melakukan select baru dengan menjalankan query
-
-```
-SELECT *, 
+``` SELECT meterID, kw30, eventDate, year, month, week, dayOfWeek, dayClassifier, hour,
 CASE 
-WHEN dayOfWeek in ('Saturday','Sunday') 	THEN 'WE' 
-									        ELSE 'BD' 
-END as dayClassifier
+WHEN hour >=7 AND hour <9 THEN '7-9'
+WHEN hour >=9 AND hour <13 THEN '9-13' 
+WHEN hour >=13 AND hour <17 THEN '13-17' 
+WHEN hour >=17 AND hour <21 THEN '17-21' 
+WHEN hour >=21 OR hour <7 THEN '21-7'  
+								 
+END as daySegment
 
 from #table#
 ```
 
-Query ini akan melakukan pembuatan column baru, dengan value nya diambil dari dayOfWeek sebelumnya dengan kondisi dimana Saturday dan Sunday akan di isi dengan WE sedangkan hari lain di isi dengan BD, sehingga menghasilkan
+- dengan menjalankan sintaks ini dengan mengkatergori 7-9,9-13,13-17,17-21,21-7<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/19.PNG "file reader")<br/>
+
+- kemudian dilakukan metode agregation and timeseries, semua yang ada pada proses memtanode Aggregation and timeseries<br/>
+dilakukan menggunakan node spark groupby dengan menentukan kolom apa saja yang digunakan dan merata-ratakan kolom yang dipilih<br/>
+dan coloumn rename untuk merename nama kolom, dan node joiner untuk melihat hasil dijadikan menjadi satu.<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/20.PNG "file reader")<br/>
+
+- konfigurasi untuk memilih kolomnya dan hasil pada pengelompokan<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/21.PNG "file reader")<br/>
+
+- konfigurasi untuk melakukan konfigurasi pada penamaan kolom dan hasil pada pengelompokan<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/22.PNG "file reader")<br/>
+
+- hasil pada pengelompokan<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/23.PNG "file reader")<br/>
+
+- pivot with average, untuk mengetahui pivot pada parameter yang di inginkan, dan setekah itu dilakukan coloumn rename <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/24.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/25.PNG "file reader")<br/>
+
+- dan didapati hasil seperti ini <br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/26.PNG "file reader")<br/>
+
+- menggunakan node sparksql query untuk menghitung rata rata presentse pemakaian perhari datri rata-rata perminggu dan presentase persegmen<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/27.PNG "file reader")<br/>
+```
+SELECT `meterID`, `totalKW`, `avgYearlyKW`,`avgMonthlyKW`,`avgWeeklyKW`,
+       `avgMonday`,`avgTuesday`,`avgWednesday`,`avgThursday`,`avgFriday`,`avgSaturday`,`avgSunday`,
+       `avgDaily`,`avg_7to9`,`avg_9to13`,`avg_13to17`,`avg_17to21`,`avg_21to7`,`avg_BD`,`avg_WE`,`avgHourly`,
+       (avgMonday / avgWeeklyKW) * 100.0 as pctMonday,
+       (avgTuesday / avgWeeklyKW) * 100.0 as pctTuesday,
+       (avgWednesday / avgWeeklyKW) * 100.0 as pctWednesday,
+       (avgThursday / avgWeeklyKW) * 100.0 as pctThursday,
+       (avgFriday / avgWeeklyKW) * 100.0 as pctFriday,
+       (avgSaturday / avgWeeklyKW) * 100.0 as pctSaturday,
+       (avgSunday / avgWeeklyKW) * 100.0 as pctSunday,
+       (avg_7to9 / avgDaily) * 100.0 as pct_7to9,
+       (avg_9to13 / avgDaily) * 100.0 as pct_9to13,
+       (avg_13to17 / avgDaily) * 100.0 as pct_13to17,
+       (avg_17to21 / avgDaily) * 100.0 as pct_17to21,
+       (avg_21to7 / avgDaily) * 100.0 as pct_21to7
+       
+FROM #table#
+
+```
+- mendapati hasil dari sparksql query<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/28.PNG "file reader")<br/>
+
+# Modeling
+
+- memasang node spark normalizer<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/29.PNG "file reader")<br/>
+
+- melakukan konfigurasi dengan seperti ini<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/30.PNG "file reader")<br/>
+
+- didapati hasil dari tersebut<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/31.PNG "file reader")<br/>
+
+- memasang node spark PCA dengan memilih 96 % data yang tidak direduksi, yang tidak dipilih adalah kolom meterID<br/>
+dan berikut adalah hasilnya<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/32.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/33.PNG "file reader")<br/>
+
+- memasang node spark kmeans untuk cluster dengan algoritma kmeans dan berikut adalah hasilnya<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/34.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/35.PNG "file reader")<br/>
+
+- memasang node spark column filter yang akan memfilter dengan memilih kolom meterid dan cluster dan berikut hasilnya<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/36.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/37.PNG "file reader")<br/>
+
+- memasang node spark joiner menggabungkan hasil PCA<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/38.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/39.PNG "file reader")<br/>
+
+# Evaluation
+
+- dari data yang didapat memasang node spark to table agar bisa digunakan pad node sebelumnya<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/40.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/41.PNG "file reader")<br/>
+ 
+- memasang node denormalizer agar mengubah nilai yang tidak dinormalisasikan<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/42.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/43.PNG "file reader")<br/>
+ 
+- memasang node number to string agar cluster, supaya dapat divisualisasikan dengan mudah<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/44.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/45.PNG "file reader")<br/>
+
+- memasang node color manager untuk mengubah warna visualisasi plot<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/46.PNG "file reader")<br/>
+ 
+- memasang node scatter plot, untuk membuat plotting<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/47.PNG "file reader")<br/>
+ 
+- memasang node table view untuk menampilkan interaktif table<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/48.PNG "file reader")<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/49.PNG "file reader")<br/>
+ 
+- memasang node table to spark untuk mengubah menjadi spark<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/50.PNG "file reader")<br/>
+  
+- memasang node spark coloumn rename<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/51.PNG "file reader")<br/>
+ 
+# Deployment
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/13.PNG)
+- memasang node spark to hive gunanya untuk mengeksport ke bentuk hivek<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/52.PNG "file reader")<br/>
+  
+- memasang node spark to parquet untuk mengeksport ke bentuk parquet<br/>
+![alt text](https://github.com/farizmpr/Bigdata-2020/blob/master/tugas_7/picture/53.PNG "file reader")<br/>
 
-Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/14.PNG)
+ 
 
-Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalisa, saya akan menjelaskan beberapa node, dikarenakan node yang lain melakukan hal yang sama, hanya berbeda pada column yang di analisa.
 
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/15.PNG)
 
-Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/16.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/17.PNG)
-
-Sedangkan ``usage by month``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/18.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/19.PNG)
-
-Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/20.PNG)
-
-Hasil dari rata-rata adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/21.PNG)
-
-Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/22.PNG)
-
-Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/23.PNG)
-
-Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, selanjutnya adalah lakukan hal yang sama pada node lainnya, setelah melakukan analisa rata-rata lakukan join pada table tersebut, sehingga hasil akhir dari table yang telah selesai di proses adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/24.PNG)
-
-Data hasil akhir didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
-
-
-### 4.5 Evaluation
-Pada evaluation akan dijalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/25.PNG)
-
-Pada tahap ini dilakukan select semua data dari node sebelumnya.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/26.PNG)
-
-Hasilnya adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/27.PNG)
-
-Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/28.PNG)
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/29.PNG)
-
-
-### 4.6 Deployment
-Selanjutnya pada tahap deployment kita akan menjalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/30.PNG)
-
-Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/2/31.PNG)
-
-
-## 5. Monthly Beer
-Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/1.PNG)
-
-Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
-
-
-### 5.1 Business Understanding
-Data test yang digunakan pada workflow ini adalah data Time Series Monthly Beer Production, sehingga kemungkinan proses yang dapat dilakukan pada data ini adalah melakukan analisa terhadap monthly beer production, analisa yang dilakukan adalah sebagai berikut :
-- Analisa berdasarkan Tahun (Total Tahun)
-- Analisa berdasarkan Bulan (Rata-rata tiap Bulan)
-
-
-### 5.2 Data Understanding
-Datasets ini berisi sejumlah data yang berisi monthly beer.
-
-Terdapat 2 kolom data dengan :
-- Month sebuah string yang berisi waktu.
-- Monthly beer production sebuah double yang berisi data produksi beer per bulan.
-
-
-### 5.3 Data Preparation
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/2.PNG)
-
-Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
-Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/3.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/4.PNG)
-
-Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/5.PNG)
-
-Monthly Beer akan disimpan pada hive dengan nama table monthly_beer.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/6.PNG)
-
-Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/7.PNG)
-
-
-### 5.4 Modeling
-Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/10.PNG)
-
-Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/8.PNG)
-
-Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/9.PNG)
-
-Pada query ini melakukan select year, month yang diambil dari kolom month, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/11.PNG)
-
-Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/12.PNG)
-
-Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalis.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/14.PNG)
-
-Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/15.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/16.PNG)
-
-Sedangkan ``usage by month``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/17.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/18.PNG)
-
-Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan bulan, dengan group by tahun
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/19.PNG)
-
-Hasil dari rata-rata adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/20.PNG)
-
-Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/21.PNG)
-
-Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/22.PNG)
-
-Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, data didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
-
-
-### 5.5 Evaluation
-Pada evaluation akan dijalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/23.PNG)
-
-Pada tahap ini dilakukan select semua data dari node sebelumnya.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/24.PNG)
-
-Hasilnya adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/25.PNG)
-
-Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/26.PNG)
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/27.PNG)
-
-
-### 5.6 Deployment
-Selanjutnya pada tahap deployment kita akan menjalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/28.PNG)
-
-Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/3/29.PNG)
-
-
-## 6. Sales Shampoo
-Workflow yang akan dijalankan pada tugas ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/1.PNG)
-
-Workflow ini berisi 3 meta node diantara lain ``Load Data Node``, ``Extract date-time attributes``, ``Aggregation and time series``.
-
-
-### 6.1 Business Understanding
-Data test yang digunakan pada workflow ini adalah data Time Series Sales Shampoo, sehingga kemungkinan proses yang dapat dilakukan pada data ini adalah melakukan analisa terhadap sales shampoo, analisa yang dilakukan adalah sebagai berikut :
-- Analisa berdasarkan Bulan (Total Bulan)
-- Analisa berdasarkan Hari (Rata-rata tiap Hari)
-
-
-### 6.2 Data Understanding
-Datasets ini berisi sejumlah data yang berisi sales shampoo.
-
-Terdapat 2 kolom data dengan :
-- Month sebuah string yang berisi waktu.
-- Sales of shampoo sebuah double yang berisi data penjualan shampoo.
-
-
-### 6.3 Data Preparation
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/2.PNG)
-
-Pada data preparation kita akan mempersiapkan data sets yang telah ditambahkan id dengan menggunakan database, data sudah berada pada folder /files/ yang disiapkan dalam bentuk spark nantinya.
-Node yang dijalankan pertama kali adalah file manger, yaitu akan dilakukan load data yang berasa dari knime, kemudian membuat local env yang kemudian akan jalankan Meta Node ``Load Data``.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/3.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/4.PNG)
-
-Meta node ``Load Data`` berisi 2 node, node ini akan melakukan pembuatan table pada hive serta melakukan load table yang telah dibuat, hasil table yang telah di buat adalah sebagai berikut.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/5.PNG)
-
-Monthly Beer akan disimpan pada hive dengan nama table sales_shampoo.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/6.PNG)
-
-Selanjutnya yang dilakukan adalah merubah table hive tadi menjadi spark, dengan menjalankan node ``Hive to Spark``, hasil dari table spark tersebut adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/7.PNG)
-
-
-### 6.4 Modeling
-Selanjutnya adalah melakukan modeling untuk merubah isi table yang ada, yang nantinya akan dilakukan pemecahan data untuk dilakukan analisa, workflow yang dijalankan adalah
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/10.PNG)
-
-Pada workflow ini kita akan menjalankan meta node ``Extract time`` node ini akan melakukan pemisahan data yang nantinya akan di lakukan analisa, isi dari node ``Extract time`` ini adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/8.PNG)
-
-Pada node ini, pertama kita akan merubah date yang berbentuk string kedalam bentuk Date, node yang dijalankan adalah node ``Spark SQL Query``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/9.PNG)
-
-Pada query ini melakukan select year, month yang diambil dari kolom month, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/11.PNG)
-
-Semua node telah dijalankan, hasil column nantinya akan dilakukan analisa pada meta node ``Aggregation and time series``, meta node ini berisi sejumlah node seperti berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/12.PNG)
-
-Pada node ini, akan dilakukan analisa dengan menghitung rata rata dari data yang dianalis.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/14.PNG)
-
-Pada node diatas dilakukan group berdasarkan ``total usage`` dan ``usage by year``, akan melakukan penghitungan berdasarkan temp seperti pada gambar
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/15.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/16.PNG)
-
-Sedangkan ``usage by month``
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/17.PNG)
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/18.PNG)
-
-Selanjutnya pada ``avg by month`` dilakukan penghitungan rata-rata berdasarkan day, dengan group by bulan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/19.PNG)
-
-Hasil dari rata-rata adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/20.PNG)
-
-Selanjutnya adalah melakukan column rename, pada column rata-rata, sesuai nama yang kita mau
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/21.PNG)
-
-Selanjutnya dilakukan join pada data sebelumnya, sehingga menghasilkan
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/22.PNG)
-
-Data yang di join adalah data yang berasal dari ``usage by month`` dan ``total usage``, data didapat dari data yang telah dipisah sebelumnya yang kemudian dilakukan analisa berdasarkan kebutuhan, inti dari metanode ini adalah untuk mendapatkan analisa berdasarkan data yang telah didapatkan pada metanode sebelumnya.
-
-
-### 6.5 Evaluation
-Pada evaluation akan dijalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/23.PNG)
-
-Pada tahap ini dilakukan select semua data dari node sebelumnya.
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/24.PNG)
-
-Hasilnya adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/25.PNG)
-
-Selanjutnya adalah melakukan Plot K-Mean, PCA, dan memiliki hasil sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/26.PNG)
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/27.PNG)
-
-
-### 6.6 Deployment
-Selanjutnya pada tahap deployment kita akan menjalankan workflow
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/28.PNG)
-
-Pada tahap ini dilakukan perubahan data dari spark kembali mejadi hive serta menympan spark kedalam HDFS dalam bentuk parquet, hasil dari data tersebut adalah sebagai berikut
-
-![](https://github.com/BagasJwn/BigData_EAS/tree/master/screenshoot/4/29.PNG)
-
-
-## 7. Referensi                                                                
-https://www.knime.com/learning-hub                                                                    
-https://github.com/ahmadkikok/bigdata_2019/tree/master/tugas_1_etl-menggunakan-knime                      
-https://github.com/ahmadkikok/bigdata_2019/tree/master/tugas_7_iris_meter_spark                      
-https://hub.knime.com/knime/spaces/Examples/latest/10_Big_Data/02_Spark_Executor/09_Big_Data_Irish_Meter_on_Spark_only
